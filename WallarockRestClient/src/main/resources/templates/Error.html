@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head">
+    <head>
+    </head>
+</head>
+<body>
+
+	<div th:replace="headerUnlogged :: headerUnlogged">
+		<div id="header"></div>
+	</div>
+	<br />
+
+	<div class="center-align">
+		<img th:src="@{~/images/404.jpg}" src="images/404.jpg"></img>
+	</div>
+    <br/>
+
+	<div th:replace="footer :: footer">
+		<div id="footer"></div>
+	</div>
+</body>
+</html>

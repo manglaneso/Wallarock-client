@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head">
+    <head>
+    </head>
+</head>
+<body>
+
+	<div th:replace="headerLogged :: headerLogged">
+		<div id="header"></div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col m10 offset-m1 s12">
+				<div class="row">
+					<div class="col m6 s12">
+						<br /> <img class="materialboxed z-depth-5" width="100%"
+							th:src="${product.imagePath}"></img>
+					</div>
+					<div class="col m6 s12">
+						<h4 th:if="${product}" th:text="${product.title}"></h4>
+						<h4 th:unless="${product}">Product title</h4>
+
+						<span> Price:</span> <span th:if="${product}"
+							th:text="${product.price}"></span> <span th:unless="${product}">Product
+							price</span> € <br /> <span>Category:</span> <span
+							th:switch="${product.category}"> <span th:case="1">Toys</span>
+							<span th:case="2">Guitars</span> <span th:case="3">Lightbulbs</span>
+							<span th:case="4">Food</span><span th:case="5">Flags</span>
+						</span> <br /> <span>Status:</span> <span th:switch="${product.status}">
+							<span th:case="1">Available</span> <span th:case="2">Reserved</span>
+							<span th:case="3">Sold</span>
+						</span> <br /> <span>Description:</span> <span th:if="${product}"
+							th:text="${product.description}"></span> <span
+							th:unless="${product}">Product description</span> <br /> <span>
+							Vendor:</span> <span th:if="${product}" th:text="${product.user.name}"></span>
+						<span th:unless="${product}">Vendor name</span> <span
+							th:if="${product}" th:text="${product.user.surname}"></span> <span
+							th:unless="${product}">Vendor surname</span> (<span
+							th:if="${product}" th:text="${product.user.email}"></span> <span
+							th:unless="${product}">Vendor email</span>) <br /> <br />
+
+						<div class="row">
+							<div class="col m12">
+								<p class="right-align">
+								        <a th:if="${session.credentialresult.admin} == 1" class="btn-large" href="Editproduct.html" th:href="@{/editproduct/(id=${product.id})}">Edit your product</a>
+								        <a th:if="${session.credentialresult.admin} == 1" class="btn-large" href="Chat.html" th:href="@{/chat/(id=${product.user.email})}">Talk to owner!</a>
+                                        <a th:if="${session.credentialresult.admin} == 1" class="btn-large red darken-4" href="Editproduct.html" th:href="@{/deleteproduct/(id=${product.id})}">Delete this product</a> 
+	                                    <a th:if="${session.credentialresult.admin == 0 and product.user.email == session.credentialresult.email}" class="btn-large" href="Editproduct.html" th:href="@{/editproduct/(id=${product.id})}">Edit your product</a>
+	                                    <a th:if="${session.credentialresult.admin == 0 and product.user.email == session.credentialresult.email}" class="btn-large red darken-4" href="Editproduct.html" th:href="@{/deleteproduct/(id=${product.id})}">Delete this product</a>
+	                                    <a th:if="${session.credentialresult.admin == 0 and product.user.email != session.credentialresult.email}" class="btn-large" href="Chat.html" th:href="@{/chat/(id=${product.user.email})}">Talk to owner!</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:if="${session.credentialresult.admin} == 0" class="fixed-action-btn">
+		<a class="btn-floating btn-large waves-effect waves-light teal"
+			href="AddProduct.html" th:href="@{/addproduct}"><i
+			class="material-icons">add</i></a>
+	</div>
+
+
+	<div th:replace="footer :: footer">
+		<div id="footer"></div>
+	</div>
+</body>
+</html>

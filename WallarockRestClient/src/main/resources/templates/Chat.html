@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head">
+    <head>
+    </head>
+</head>
+<body>
+
+	<div th:replace="headerLogged :: headerLogged">
+		<div id="header"></div>
+	</div>
+
+    <br/>
+    <h3 class="center-align" th:if="${chat.user1} == ${session.credentialresult.email}" th:text="${chat.user2}"></h3>
+    <h3 class="center-align" th:if="${chat.user1} != ${session.credentialresult.email}" th:text="${chat.user1}"></h3>
+    <br/>
+    
+    <div class="divider"></div>
+    <br/>
+    
+	<div class="container">
+		<div class="row">
+			<div class="col m10 offset-m1 s12">
+				<div class="row right-align" style="overflow-y:scroll;height:400px;">
+					<div class="col s12" th:each="message : ${chat.messages}">
+						<div class="card-panel teal">
+							<span class="white-text" th:text="${message}">I am a very simple chat. Please
+								talk with me. I am very desperate... </span>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<form class="col s12" th:if="${chat.user1} == ${session.credentialresult.email}" th:action="@{/chataction/(id=${chat.user2})}"
+						th:object="${operands}" method="post">
+						<div class="row">
+							<div class="input-field col s12">
+								<input id="text" type="text" class="validate" required="required"
+									th:field="*{message}" onFocus="this.select()"></input> <label for="text">text</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col m12">
+								<p class="right-align">
+									<button class="btn btn-large waves-effect waves-light"
+										type="submit" name="action">Send Message</button>
+								</p>
+							</div>
+						</div>
+					</form>
+					
+					<form class="col s12" th:if="${chat.user2} == ${session.credentialresult.email}" th:action="@{/chataction/(id=${chat.user1})}"
+                        th:object="${operands}" method="post">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="text" type="text" class="validate" required="required"
+                                    th:field="*{message}" onFocus="this.select()"></input> <label for="text">text</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m12">
+                                <p class="right-align">
+                                    <button class="btn btn-large waves-effect waves-light"
+                                        type="submit" name="action">Send Message</button>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div th:replace="footer :: footer">
+		<div id="footer"></div>
+	</div>
+</body>
+</html>

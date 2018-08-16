@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head">
+    <head>
+    </head>
+</head>
+<body>
+
+	<div th:replace="headerLogged :: headerLogged">
+		<div id="header"></div>
+	</div>
+	
+	<br />
+	<h4 class="center-align">Admin panel</h4>
+
+	<div class="container">
+		<br />
+		<h5>All Users</h5>
+		<hr />
+		<div class="row" style="overflow-y: scroll; height: 400px;">
+			<table class="responsive-table striped">
+				<tr>
+				<thead>
+					<th data-field="id">User</th>
+				</thead>
+				</tr>
+				<tbody>
+					<tr th:each="user : ${users}">
+						<td th:text="${user.email}">User</td>
+						<td>
+							<div class="right-align">
+								<a class="btn waves-effect waves-light"
+									th:href="@{/adminprofile/(id=${user.email})}">Go to user</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+	<div class="container">
+		<br />
+		<h5>All Products</h5>
+		<hr />
+		<div class="row" style="overflow-y: scroll; height: 400px;">
+			<table class="responsive-table striped">
+				<tr>
+				<thead>
+					<th data-field="id">Product</th>
+				</thead>
+				</tr>
+				<tbody>
+					<tr th:each="product : ${products}">
+						<td th:text="${product.id}">Product</td>
+						<td th:text="${product.title}">Title</td>
+						<td th:text="${product.user.email}">Owner</td>
+						<td th:text="${product.price}">Price</td>
+						
+						<td>
+							<div class="right-align">
+								<a class="btn waves-effect waves-light" type="submit"
+									th:href="@{/productaction/(id=${product.id})}">Go to
+									product</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div th:replace="footer :: footer">
+		<div id="footer"></div>
+	</div>
+</body>
+</html>

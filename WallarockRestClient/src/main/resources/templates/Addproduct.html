@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head">
+    <head>
+    </head>
+</head>
+<body>
+
+	<div th:replace="headerLogged :: headerLogged">
+		<div id="header"></div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col m10 offset-m1 s12">
+				<h2 class="center-align">Register new product</h2>
+
+				<form class="col s12" th:action="@{/addproductaction}"
+					th:object="${operands}" method="post" enctype="multipart/form-data">
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="title" type="text" class="validate"
+								th:field="*{title}" required="required"></input> <label
+								for="title">Product title</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s12">
+							<input id="price" type="text" class="validate"
+								th:field="*{price}" required="required"></input> <label
+								for="price">Set a price in €</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="input-field col s12">
+							<textarea id="description" class="validate materialize-textarea"
+								length="500" th:field="*{description}" required="required"></textarea>
+							<label for="description">Product description</label>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="browser-default input-field col s12">
+							<select th:field="*{category}">
+								<option th:value="@{1}" value="1">Toys</option>
+								<option th:value="@{2}" value="2">Guitars</option>
+								<option th:value="@{3}" value="3">Lightbulbs</option>
+								<option th:value="@{4}" value="4">Food</option>
+                                <option th:value="@{5}" value="4">Flags</option>
+							</select> <label>Select Category</label>
+						</div>
+					</div>
+
+
+
+					<div class="row">
+						<div class="file-field input-field">
+							<div class="btn waves-effect waves-light">
+								<span>Upload a photo</span> <input type="file" name="file"
+									required="required"></input>
+							</div>
+							<div class="file-path-wrapper">
+								<input class="file-path validate" th:field="*{imagePath}"
+									type="text" required="required"></input>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col m12">
+							<p class="right-align">
+								<button class="btn btn-large waves-effect waves-light"
+									type="submit" name="action">Register the product!</button>
+							</p>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div th:if="${session.credentialresult.admin} == 0" class="fixed-action-btn">
+		<a class="btn-floating btn-large waves-effect waves-light teal"
+			href="AddProduct.html" th:href="@{/addproduct}"><i
+			class="material-icons">add</i></a>
+	</div>
+
+
+	<div th:replace="footer :: footer">
+		<div id="footer"></div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+</head>
+<body>
+	<div class="navbar-fixed" th:fragment="headerLogged">
+		<nav class="teal" role="navigation">
+			<div class="nav-wrapper container">
+				<a id="logo-container" href="HomepageLogged.html" th:href="@{/}"
+					class="brand-logo">Wallarock</a>
+				<ul class="right hide-on-med-and-down">
+					<li><a th:if="${session.credentialresult.admin} == 0"
+						href="Profile.html" th:href="@{/profile}"
+						th:text="${session.credentialresult.email}"
+						th:unless="${session == null}">Profile</a></li>
+					<li><a th:if="${session.credentialresult.admin} == 1"
+						href="Profile.html" th:href="@{/adminpanel}"
+						th:text="${session.credentialresult.email}"
+						th:unless="${session == null}">Profile</a></li>
+					<li><a href="Profile.html" th:href="@{/chatlist}">Your
+							chats</a></li>
+					<li><a href="HomepageUnlogged.html" th:href="@{/logout}">Log
+							Out</a></li>
+				</ul>
+
+				<ul id="slide-out" class="side-nav">
+					<li><div class="userView">
+							<div class="background">
+								<img src="images/bubub.jpg" th:src="@{~/images/bubub.jpg}"></img>
+							</div>
+							<a th:if="${session.credentialresult.admin} == 0"
+								href="Profile.html" th:href="@{/profile}"> <img
+								class="circle" src="images/usericon.png"
+								th:src="@{~/images/usericon.png}"></img></a> <a href="Profile.html"
+								th:href="@{/profile}"><span class="white-text name"
+								th:text="${session.credentialresult.name}"
+								th:unless="${session == null}">John Doe</span></a> <a
+								href="Profile.html" th:href="@{/profile}"><span
+								class="white-text email"
+								th:text="${session.credentialresult.email}"
+								th:unless="${session == null}">user@email.com</span></a> <a
+								th:if="${session.credentialresult.admin} == 1"
+								href="Profile.html" th:href="@{/adminpanel}"> <img
+								class="circle" src="images/usericon.png"
+								th:src="@{~/images/usericon.png}"></img></a> <a href="Profile.html"
+								th:href="@{/profile}"><span class="white-text name"
+								th:text="${session.credentialresult.name}"
+								th:unless="${session == null}">John Doe</span></a> <a
+								href="Profile.html" th:href="@{/profile}"><span
+								class="white-text email"
+								th:text="${session.credentialresult.email}"
+								th:unless="${session == null}">user@email.com</span></a>
+						</div></li>
+					<li>
+						<div class="input-field inline">
+							<form th:action="@{/simplesearchaction}"
+								th:object="${simplesearch}" method="post">
+								<input id="search1" type="search" th:field="*{query}"></input> <label
+									for="search1">Search<i class="material-icons">search</i></label>
+								<i class="mdi-navigation-close"></i>
+							</form>
+						</div>
+					</li>
+					<li><a href="Profile.html" th:href="@{/chatlist}"><i
+							class="material-icons">chat_bubble_outline</i>Your chats</a></li>
+					<li><a class="waves-effect" href="HomepageUnlogged.html"
+						th:href="@{/logout}"><i class="material-icons">perm_identity</i>Log
+							Out</a></li>
+				</ul>
+				<a href="#" data-activates="slide-out" class="button-collapse"><i
+					class="material-icons">menu</i></a>
+			</div>
+		</nav>
+	</div>
+
+	<nav class="teal lighten-2 flat hide-on-med-and-down"
+		th:fragment="headerLogged">
+		<div class="nav-wrapper container">
+			<form th:action="@{/simplesearchaction}" th:object="${simplesearch}"
+				method="post">
+				<div class="input-field">
+					<input id="search" type="search" th:field="*{query}"></input> <label
+						for="search"><i class="material-icons">search</i></label> <i
+						class="mdi-navigation-close"></i>
+				</div>
+			</form>
+		</div>
+	</nav>
+</body>
+</html>

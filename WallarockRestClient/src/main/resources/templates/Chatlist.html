@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="head :: head">
+    <head>
+    </head>
+</head>
+<body>
+
+	<div th:replace="headerLogged :: headerLogged">
+		<div id="header"></div>
+	</div>
+
+
+	<div class="container">
+		<br />
+		<h5>Your chats</h5>
+		<hr />
+		<div class="row">
+			<table class="responsive-table striped">
+				<tr>
+				<thead>
+					<th data-field="id">User</th>
+				</thead>
+				</tr>
+				<tbody>
+					<tr th:each="chat : ${chats}">
+						<td th:if="${chat.user1} == ${session.credentialresult.email}"
+							th:text="${chat.user2}">User</td>
+						<td th:if="${chat.user1} != ${session.credentialresult.email}"
+							th:text="${chat.user1}">User</td>
+						<td>
+							<div class="right-align">
+								<form th:if="${chat.user1} != ${session.credentialresult.email}"
+									th:action="@{/chataction/(id=${chat.user1})}" method="post">
+									<button class="btn waves-effect waves-light" type="submit"
+										name="action"> Go to chat!</button>
+
+								</form>
+								<form th:if="${chat.user1} == ${session.credentialresult.email}"
+									th:action="@{/chataction/(id=${chat.user2})}" method="post">
+									<button class="btn waves-effect waves-light" type="submit"
+                                        name="action"> Go to chat!</button>
+								</form>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div th:if="${session.credentialresult.admin} == 0" class="fixed-action-btn">
+       <a class="btn-floating btn-large waves-effect waves-light teal" href="AddProduct.html" th:href="@{/addproduct}"><i class="material-icons">add</i></a>
+    </div>
+	
+	<div th:replace="footer :: footer">
+		<div id="footer"></div>
+	</div>
+</body>
+</html>
